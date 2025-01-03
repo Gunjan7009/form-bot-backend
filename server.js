@@ -38,7 +38,7 @@ app.get("/healthCheck", (req, res) => {
 });
 app.use("/user", userRoutes);
 app.use('/api/workspaces', userMiddleware , workspaceRoutes);
-app.use('/forms', userMiddleware, formRoutes );
+app.use('/forms', formRoutes );
 
 app.listen(port, (err) => {
   if (!err) {
