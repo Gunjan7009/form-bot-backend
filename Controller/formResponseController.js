@@ -7,79 +7,79 @@ const { getFormStats } = require("./formStatsController"); // Correct the path a
 require("dotenv").config();
 
 // Save user response to a form
-// const saveFormResponse = async (req, res) => {
-//   try {
-//     const { shareToken } = req.params;
-//     const { elementId, elementLabel, response, sessionId } = req.body;
-//     // const userId = req.user?.id; // Optional user ID
-//     const ipAddress = req.ip;
+const saveFormResponse = async (req, res) => {
+  try {
+    const { formId } = req.params;
+    const { elementId, elementLabel, response, sessionId } = req.body;
+    // const userId = req.user?.id; // Optional user ID
+    const ipAddress = req.ip;
 
-//     if (!elementId || !elementLabel || !response || !sessionId){
-//       return res.status(400).json({
-//         success: false,
-//         message:
-//           "Missing required fields: elementId, elementLabel, or response",
-//       });
-//     }
+    if (!elementId || !elementLabel || !response || !sessionId){
+      return res.status(400).json({
+        success: false,
+        message:
+          "Missing required fields: elementId, elementLabel, or response",
+      });
+    }
 
-//     // Find existing response session or create new one
-//     let formResponse = await FormResponse.findOne({
-//       formId,
-//       status: { $in: ["started", "in_progress"] }
-//     });
+    // Find existing response session or create new one
+    let formResponse = await FormResponse.findOne({
+      formId,
+      status: { $in: ["started", "in_progress"] }
+    });
 
-//     if (!formResponse) {
-//       formResponse = new FormResponse({
-//         formId,
-//         sessionId,
-//         ipAddress,
-//         responses: [],
-//         status: "started"
-//       });
-//     }
+    if (!formResponse) {
+      formResponse = new FormResponse({
+        formId,
+        sessionId,
+        ipAddress,
+        responses: [],
+        status: "started"
+      });
+    }
 
-//     // Add new response
-//     formResponse.responses.push({
-//       elementId,
-//       elementLabel,
-//       response,
-//       timestamp: new Date(),
-//     });
+    // Add new response
+    formResponse.responses.push({
+      elementId,
+      elementLabel,
+      response,
+      timestamp: new Date(),
+    });
 
-//     formResponse.lastInteractionAt = new Date();
-//     formResponse.status = "in_progress";
-//     // Check if this is the last response
-//     const originalForm = await Form.findById(formId);
-//     if (originalForm && formResponse.responses.length === originalForm.elements.length) {
-//       formResponse.status = "completed";
-//       formResponse.completedAt = new Date();
+    formResponse.lastInteractionAt = new Date();
+    formResponse.status = "in_progress";
+    // Check if this is the last response
+    const originalForm = await Form.findById(formId);
+    if (originalForm && formResponse.responses.length === originalForm.elements.length) {
+      formResponse.status = "completed";
+      formResponse.completedAt = new Date();
       
-//       // Update completion stats
-//       await FormStat.findOneAndUpdate(
-//         { formId },
-//         {
-//           $inc: { completed: 1 },
-//           $set: { lastUpdated: new Date() }
-//         },
-//         { upsert: true }
-//       );
-//     }
+      // Update completion stats
+      await FormStat.findOneAndUpdate(
+        { formId },
+        {
+          $inc: { completed: 1 },
+          $set: { lastUpdated: new Date() }
+        },
+        { upsert: true }
+      );
+    }
 
-//     await formResponse.save();
+    await formResponse.save();
 
-//     res.status(200).json({
-//       success: true,
-//       formResponse,
-//     });
-//   } catch (error) {
-//     console.error("Error saving form response:", error);
-//     res.status(500).json({
-//       success: false,
-//       message: "Error saving form response",
-//       error: error.message,
-//     });
-//   }
-// };
+    res.status(200).json({
+      success: true,
+      formResponse,
+    });
+  } catch (error) {
+    console.error("Error saving form response:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error saving form response",
+      error: error.message,
+    });
+  }
+};
 
 // Fetch all responses for a form (admin or creator access required)
 const getFormResponses = async (req, res) => {
@@ -228,7 +228,7 @@ const savePublicFormResponse = async (req, res) => {
   }
 };
 module.exports = {
-  // saveFormResponse,
+  saveFormResponse,
   getFormResponses,
   incrementFormView,
   savePublicFormResponse,

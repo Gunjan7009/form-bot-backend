@@ -13,7 +13,7 @@ const {
   } = require("../Controller/formController.js");
 
   const {
-    // saveFormResponse,
+    saveFormResponse,
     getFormResponses,
     savePublicFormResponse,
   } = require("../Controller/formResponseController.js");
@@ -29,7 +29,7 @@ router.delete("/deleteForm/:formId", userMiddleware, deleteForm);
 router.post("/share/:formId", userMiddleware, shareForm);
 router.get("/public/:shareToken", getPublicForm);
 router.post("/public/:shareToken/responses", savePublicFormResponse);
-// router.post("/formsbot/:formId/responses", saveFormResponse);
+router.post("/formsbot/:formId/responses", saveFormResponse);
 router.get("/formsbot/:formId/responses", userMiddleware, getFormResponses);
 router.get("/forms/:formId/stats", userMiddleware, async (req, res) => {
   try {
