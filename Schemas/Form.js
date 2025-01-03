@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const ElementSchema = new mongoose.Schema({
   type: { type: String, required: true }, // e.g., "input-text", "input-email"
   id: { type: String, required: true },   // unique identifier for the element
-  label: { type: String }, // the label for the form element
+  label: { type: String, required: true }, // the label for the form element
   content: { type: String }, // content or placeholder text
 }, { _id: false });
 
