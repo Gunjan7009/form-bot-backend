@@ -12,7 +12,11 @@ const {
     getFormDetails,
   } = require("../Controller/formController.js");
 
-  const { saveFormResponse, getFormResponses } = require("../Controller/formResponseController.js")
+  const {
+    saveFormResponse,
+    getFormResponses,
+    savePublicFormResponse,
+  } = require("../Controller/formResponseController.js");
 
 const router = express.Router();
 
@@ -24,7 +28,8 @@ router.get("/getFormById/:formId", userMiddleware, getFormById);
 router.delete("/deleteForm/:formId", userMiddleware, deleteForm);
 router.post("/share/:formId", userMiddleware, shareForm);
 router.get("/public/:shareToken", getPublicForm);
-router.post("/formsbot/:formId/responses", userMiddleware, saveFormResponse);
+router.post("/public/:shareToken/responses", savePublicFormResponse);
+// router.post("/formsbot/:formId/responses", saveFormResponse);
 router.get("/formsbot/:formId/responses", userMiddleware, getFormResponses);
 router.get("/forms/:formId/stats", userMiddleware, async (req, res) => {
   try {
