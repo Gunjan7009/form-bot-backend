@@ -10,16 +10,18 @@ const cors = require("cors");
 dotenv.config();
 
 const app = express();
-app.use(cors({
-  origin: [
-    'http://localhost:3000', 
-    'https://statuesque-moonbeam-16e2cc.netlify.app',
-    'https://form-bot-backend-tau.vercel.app'  // Add your Vercel backend URL
-  ],
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://form-botapp.netlify.app",
+      "https://form-bot-backend-tau.vercel.app", // Add your Vercel backend URL
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 
