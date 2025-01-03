@@ -16,6 +16,7 @@ app.use(
       "http://localhost:3000",
       "https://form-botapp.netlify.app",
       "https://form-bot-backend-nu.vercel.app", // Add your Vercel backend URL
+      "http://localhost:5173",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],

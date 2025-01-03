@@ -228,7 +228,7 @@ const savePublicFormResponse = async (req, res) => {
   }
 };
 module.exports = {
-  saveFormResponse,
+  // saveFormResponse,
   getFormResponses,
   incrementFormView,
   savePublicFormResponse,
