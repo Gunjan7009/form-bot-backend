@@ -5,8 +5,7 @@ const crypto = require('crypto');
 
 exports.createWorkspace = async (req, res) => {
   const { name } = req.body;
-  const owner = req.user.id; // Get owner from authenticated user
-
+  const owner = req.user.id;
   try {
     // Create workspace
     const workspace = new Workspace({
